@@ -1,5 +1,5 @@
 CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
+CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb `sdl2-config --cflags`
 
 OPENGL_API := 4.5
 GLAD_BUILD_DIR := glad
@@ -9,7 +9,7 @@ SRC		:= src
 INCLUDE	:= include
 LIB		:= lib
 
-LIBRARIES	:= -ldl
+LIBRARIES	:= `sdl2-config --libs` -ldl
 EXECUTABLE	:= renderer
 
 
