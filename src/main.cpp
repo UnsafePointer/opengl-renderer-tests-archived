@@ -38,9 +38,10 @@ int main() {
         {0.0f, 1.0f, 0.0f},
         {0.0f, 0.0f, 1.0f}
     };
-    RendererBuffer<Point> pointsBuffer = RendererBuffer<Point>(program, 1024);
+    std::unique_ptr<VertexArrayObject> vao = std::make_unique<VertexArrayObject>();
+    RendererBuffer<Point> pointsBuffer = RendererBuffer<Point>(vao, program, 1024);
     pointsBuffer.addData(points);
-    RendererBuffer<Color> colorBuffer = RendererBuffer<Color>(program, 1024);
+    RendererBuffer<Color> colorBuffer = RendererBuffer<Color>(vao, program, 1024);
     colorBuffer.addData(colors);
     bool quit = false;
     while (!quit) {

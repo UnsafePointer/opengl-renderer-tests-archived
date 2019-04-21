@@ -7,7 +7,7 @@
 
 template <class T>
 class RendererBuffer {
-    std::unique_ptr<VertexArrayObject> vao;
+    std::unique_ptr<VertexArrayObject> &vao;
     GLuint vbo;
     std::unique_ptr<RendererProgram> &program;
     uint capacity;
@@ -15,7 +15,7 @@ class RendererBuffer {
 
     void enableAttributes() const;
 public:
-    RendererBuffer(std::unique_ptr<RendererProgram> &program, uint capacity);
+    RendererBuffer(std::unique_ptr<VertexArrayObject> &vao, std::unique_ptr<RendererProgram> &program, uint capacity);
     ~RendererBuffer();
 
     void bind() const;

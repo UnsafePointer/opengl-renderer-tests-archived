@@ -8,7 +8,7 @@
 using namespace std;
 
 template <class T>
-RendererBuffer<T>::RendererBuffer(unique_ptr<RendererProgram> &program, uint capacity) : vao(make_unique<VertexArrayObject>()), program(program), capacity(capacity), size(0) {
+RendererBuffer<T>::RendererBuffer(std::unique_ptr<VertexArrayObject> &vao, unique_ptr<RendererProgram> &program, uint capacity) : vao(vao), program(program), capacity(capacity), size(0) {
     glGenBuffers(1, &vbo);
 
     vao->bind();
