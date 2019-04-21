@@ -8,11 +8,14 @@ template <class T>
 class RendererBuffer {
     std::unique_ptr<VertexArrayObject> vao;
     GLuint vbo;
+    uint capacity;
+    uint size;
 
     void enableAttributes() const;
 public:
-    RendererBuffer(std::vector<T> objects);
+    RendererBuffer(uint capacity);
     ~RendererBuffer();
 
     void bind() const;
+    void addData(std::vector<T> data);
 };

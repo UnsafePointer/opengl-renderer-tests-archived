@@ -32,15 +32,8 @@ int main() {
          Vertex(-0.5f, -0.5f,  0.0f, 1.0f, 0.0f),
          Vertex(0.0f,  0.5f,  0.0f, 0.0f, 1.0f)
     };
-
-    // std::vector<Texel> texels = {
-    //      Texel(0.5f, -0.5f),
-    //      Texel(-0.5f, -0.5f),
-    //      Texel(0.0f,  0.5f)
-    // };
-
-    RendererBuffer<Vertex> buffer = RendererBuffer<Vertex>(vertices);
-    // RendererBuffer<Texel> buffer = RendererBuffer<Texel>(texels);
+    RendererBuffer<Vertex> buffer = RendererBuffer<Vertex>(1024);
+    buffer.addData(vertices);
     bool quit = false;
     while (!quit) {
         SDL_Event event;
