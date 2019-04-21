@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Vertex.hpp"
 #include "Texel.hpp"
+#include "Structures.hpp"
 
 using namespace std;
 
@@ -62,5 +63,21 @@ void RendererBuffer<Texel>::enableAttributes() const {
     glEnableVertexAttribArray(positionIdx);
 }
 
+template <>
+void RendererBuffer<Point>::enableAttributes() const {
+    GLuint positionIdx = program->findProgramAttribute("position");
+    glVertexAttribPointer(positionIdx, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+    glEnableVertexAttribArray(positionIdx);
+}
+
+template <>
+void RendererBuffer<Color>::enableAttributes() const {
+    GLuint colorIdx = program->findProgramAttribute("color");
+    glVertexAttribPointer(colorIdx, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glEnableVertexAttribArray(colorIdx);
+}
+
+template class RendererBuffer<Point>;
+template class RendererBuffer<Color>;
 template class RendererBuffer<Vertex>;
 template class RendererBuffer<Texel>;

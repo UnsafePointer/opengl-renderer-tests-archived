@@ -28,13 +28,20 @@ int main() {
     std::unique_ptr<RendererProgram> program = std::make_unique<RendererProgram>("glsl/vertex.glsl", "glsl/fragment.glsl");
     program->useProgram();
 
-    std::vector<Vertex> vertices = {
-         Vertex(0.5f, -0.5f,  1.0f, 0.0f, 0.0f),
-         Vertex(-0.5f, -0.5f,  0.0f, 1.0f, 0.0f),
-         Vertex(0.0f,  0.5f,  0.0f, 0.0f, 1.0f)
+    std::vector<Point> points = {
+         {0.5f, -0.5f},
+         {-0.5f, -0.5f},
+         {0.0f,  0.5f}
     };
-    RendererBuffer<Vertex> buffer = RendererBuffer<Vertex>(program, 1024);
-    buffer.addData(vertices);
+    std::vector<Color> colors = {
+        {1.0f, 0.0f, 0.0f},
+        {0.0f, 1.0f, 0.0f},
+        {0.0f, 0.0f, 1.0f}
+    };
+    RendererBuffer<Point> pointsBuffer = RendererBuffer<Point>(program, 1024);
+    pointsBuffer.addData(points);
+    RendererBuffer<Color> colorBuffer = RendererBuffer<Color>(program, 1024);
+    colorBuffer.addData(colors);
     bool quit = false;
     while (!quit) {
         SDL_Event event;
