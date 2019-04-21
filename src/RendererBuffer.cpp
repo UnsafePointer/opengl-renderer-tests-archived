@@ -1,6 +1,7 @@
 #include "RendererBuffer.hpp"
 #include <stddef.h>
-#include <Vertex.hpp>
+#include "Vertex.hpp"
+#include "Texel.hpp"
 
 using namespace std;
 
@@ -34,4 +35,11 @@ void RendererBuffer<Vertex>::enableAttributes() const {
     glEnableVertexAttribArray(1);
 }
 
+template <>
+void RendererBuffer<Texel>::enableAttributes() const {
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Texel), (void*)offsetof(struct Texel, position));
+    glEnableVertexAttribArray(0);
+}
+
 template class RendererBuffer<Vertex>;
+template class RendererBuffer<Texel>;
