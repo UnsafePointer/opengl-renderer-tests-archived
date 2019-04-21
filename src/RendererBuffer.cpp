@@ -2,18 +2,18 @@
 
 using namespace std;
 
-RendererBuffer::RendererBuffer(vector<float> vertices) : vao(make_unique<VertexArrayObject>()) {
+RendererBuffer::RendererBuffer(vector<Vertex> vertices) : vao(make_unique<VertexArrayObject>()) {
     glGenBuffers(1, &vbo);
 
     vao->bind();
     bind();
 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(2 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 }
 

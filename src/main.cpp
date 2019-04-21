@@ -5,6 +5,7 @@
 #include <vector>
 #include "RendererProgram.hpp"
 #include "RendererBuffer.hpp"
+#include "Vertex.hpp"
 
 int main() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -25,10 +26,10 @@ int main() {
     RendererProgram program = RendererProgram("glsl/vertex.glsl", "glsl/fragment.glsl");
     program.useProgram();
 
-    std::vector<float> vertices = {
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,
-         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f
+    std::vector<Vertex> vertices = {
+         Vertex(0.5f, -0.5f,  1.0f, 0.0f, 0.0f),
+         Vertex(-0.5f, -0.5f,  0.0f, 1.0f, 0.0f),
+         Vertex(0.0f,  0.5f,  0.0f, 0.0f, 1.0f)
     };
 
     RendererBuffer buffer = RendererBuffer(vertices);
