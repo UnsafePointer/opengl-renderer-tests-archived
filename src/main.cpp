@@ -2,8 +2,7 @@
 #include <glad/glad.h>
 #include <iostream>
 #include <fstream>
-
-std::string openShaderSource(std::string filePath);
+#include "RendererProgram.hpp"
 
 int main() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -21,27 +20,8 @@ int main() {
     }
     std::cout << "OpenGL " << GLVersion.major << "." << GLVersion.minor << std::endl;
 
-    std::string source;
-    const GLchar *src;
-
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    source = openShaderSource("glsl/vertex.glsl");
-    src = source.c_str();
-    glShaderSource(vertexShader, 1, &src, NULL);
-    glCompileShader(vertexShader);
-
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    source = openShaderSource("glsl/fragment.glsl");
-    src = source.c_str();
-    glShaderSource(fragmentShader, 1, &src, NULL);
-    glCompileShader(fragmentShader);
-
-    unsigned int shaderProgram;
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    glUseProgram(shaderProgram);
+    RendererProgram program = RendererProgram("glsl/vertex.glsl", "glsl/fragment.glsl");
+    program.useProgram();
 
     float vertices[] = {
          0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
@@ -79,16 +59,4 @@ int main() {
     }
     SDL_Quit();
     return 0;
-}
-
-std::string openShaderSource(std::string filePath) {
-    std::ifstream file(filePath);
-    std::string source;
-
-    file.seekg(0, std::ios::end);
-    source.reserve(file.tellg());
-    file.seekg(0, std::ios::beg);
-
-    source.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-    return source;
 }
