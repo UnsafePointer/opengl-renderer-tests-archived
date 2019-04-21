@@ -32,7 +32,7 @@ int main() {
          Vertex(0.0f,  0.5f,  0.0f, 0.0f, 1.0f)
     };
 
-    RendererBuffer buffer = RendererBuffer(vertices);
+    RendererBuffer<Vertex> buffer = RendererBuffer<Vertex>(vertices);
     bool quit = false;
     while (!quit) {
         SDL_Event event;

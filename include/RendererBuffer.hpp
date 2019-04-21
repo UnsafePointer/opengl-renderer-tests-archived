@@ -3,13 +3,15 @@
 #include <memory>
 #include <vector>
 #include "VertexArrayObject.hpp"
-#include "Vertex.hpp"
 
+template <class T>
 class RendererBuffer {
     std::unique_ptr<VertexArrayObject> vao;
     GLuint vbo;
+
+    void enableAttributes() const;
 public:
-    RendererBuffer(std::vector<Vertex> vertices);
+    RendererBuffer(std::vector<T> objects);
     ~RendererBuffer();
 
     void bind() const;
