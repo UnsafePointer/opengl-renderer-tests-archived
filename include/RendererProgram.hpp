@@ -14,4 +14,5 @@ public:
     ~RendererProgram();
 
     void useProgram() const;
+    GLuint findProgramAttribute(std::string attribute) const;
 };

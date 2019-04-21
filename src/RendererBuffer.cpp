@@ -7,7 +7,7 @@
 using namespace std;
 
 template <class T>
-RendererBuffer<T>::RendererBuffer(uint capacity) : vao(make_unique<VertexArrayObject>()), capacity(capacity), size(0) {
+RendererBuffer<T>::RendererBuffer(unique_ptr<RendererProgram> &program, uint capacity) : vao(make_unique<VertexArrayObject>()), program(program), capacity(capacity), size(0) {
     glGenBuffers(1, &vbo);
 
     vao->bind();
@@ -46,17 +46,20 @@ void RendererBuffer<T>::addData(vector<T> data) {
 
 template <>
 void RendererBuffer<Vertex>::enableAttributes() const {
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(struct Vertex, position));
-    glEnableVertexAttribArray(0);
+    GLuint positionIdx = program->findProgramAttribute("position");
+    glVertexAttribPointer(positionIdx, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(struct Vertex, position));
+    glEnableVertexAttribArray(positionIdx);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(struct Vertex, color));
-    glEnableVertexAttribArray(1);
+    GLuint colorIdx = program->findProgramAttribute("color");
+    glVertexAttribPointer(colorIdx, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(struct Vertex, color));
+    glEnableVertexAttribArray(colorIdx);
 }
 
 template <>
 void RendererBuffer<Texel>::enableAttributes() const {
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Texel), (void*)offsetof(struct Texel, position));
-    glEnableVertexAttribArray(0);
+    GLuint positionIdx = program->findProgramAttribute("position");
+    glVertexAttribPointer(positionIdx, 2, GL_FLOAT, GL_FALSE, sizeof(Texel), (void*)offsetof(struct Texel, position));
+    glEnableVertexAttribArray(positionIdx);
 }
 
 template class RendererBuffer<Vertex>;

@@ -59,3 +59,10 @@ GLuint RendererProgram::linkProgram(vector<GLuint> shaders) const {
     }
     return program;
 }
+
+GLuint RendererProgram::findProgramAttribute(string attribute) const {
+    const GLchar *attrib = attribute.c_str();
+    GLint index = glGetAttribLocation(program, attrib);
+    checkForOpenGLErrors();
+    return index;
+}

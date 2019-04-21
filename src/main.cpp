@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <memory>
 #include "RendererProgram.hpp"
 #include "RendererBuffer.hpp"
 #include "Vertex.hpp"
@@ -24,15 +25,15 @@ int main() {
     }
     std::cout << "OpenGL " << GLVersion.major << "." << GLVersion.minor << std::endl;
 
-    RendererProgram program = RendererProgram("glsl/vertex.glsl", "glsl/fragment.glsl");
-    program.useProgram();
+    std::unique_ptr<RendererProgram> program = std::make_unique<RendererProgram>("glsl/vertex.glsl", "glsl/fragment.glsl");
+    program->useProgram();
 
     std::vector<Vertex> vertices = {
          Vertex(0.5f, -0.5f,  1.0f, 0.0f, 0.0f),
          Vertex(-0.5f, -0.5f,  0.0f, 1.0f, 0.0f),
          Vertex(0.0f,  0.5f,  0.0f, 0.0f, 1.0f)
     };
-    RendererBuffer<Vertex> buffer = RendererBuffer<Vertex>(1024);
+    RendererBuffer<Vertex> buffer = RendererBuffer<Vertex>(program, 1024);
     buffer.addData(vertices);
     bool quit = false;
     while (!quit) {
