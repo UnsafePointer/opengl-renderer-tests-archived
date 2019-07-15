@@ -29,6 +29,14 @@ void RendererBuffer<T>::bind() const {
 }
 
 template <class T>
+void RendererBuffer<T>::clean() {
+    bind();
+    GLsizeiptr bufferSize = sizeof(T) * capacity;
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, nullptr, GL_DYNAMIC_DRAW);
+    size = 0;
+}
+
+template <class T>
 void RendererBuffer<T>::addData(vector<T> data) {
     uint remainingCapacity = capacity - size;
     if (data.size() > remainingCapacity) {
@@ -42,6 +50,14 @@ void RendererBuffer<T>::addData(vector<T> data) {
     glBufferSubData(GL_ARRAY_BUFFER, offset, dataSize, data.data());
 
     size += data.size();
+}
+
+template <class T>
+void RendererBuffer<T>::draw() {
+    vao->bind();
+    program->useProgram();
+    glDrawArrays(GL_TRIANGLES, 0, (GLsizei)size);
+    clean();
 }
 
 template <>

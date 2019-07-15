@@ -19,5 +19,7 @@ public:
     ~RendererBuffer();
 
     void bind() const;
+    void clean();
     void addData(std::vector<T> data);
+    void draw();
 };

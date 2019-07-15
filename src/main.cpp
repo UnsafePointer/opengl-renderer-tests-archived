@@ -34,7 +34,6 @@ int main() {
          Vertex(0.0f,  0.5f,  0.0f, 0.0f, 1.0f)
     };
     RendererBuffer<Vertex> buffer = RendererBuffer<Vertex>(program, 1024);
-    buffer.addData(vertices);
     bool quit = false;
     while (!quit) {
         SDL_Event event;
@@ -43,9 +42,10 @@ int main() {
                 quit = true;
             }
         }
+        buffer.addData(vertices);
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        buffer.draw();
         SDL_GL_SwapWindow(window);
     }
     SDL_Quit();
