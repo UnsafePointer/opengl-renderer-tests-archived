@@ -16,7 +16,9 @@ int main() {
             }
         }
         renderer.addPolygon(vertices);
-        renderer.forceDraw();
+        renderer.prepareFrame();
+        renderer.render();
+        renderer.finishFrame();
     }
     SDL_Quit();
     return 0;
