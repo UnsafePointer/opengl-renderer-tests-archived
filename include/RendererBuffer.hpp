@@ -4,18 +4,19 @@
 #include <vector>
 #include "VertexArrayObject.hpp"
 #include "RendererProgram.hpp"
+#include <cstdint>
 
 template <class T>
 class RendererBuffer {
     std::unique_ptr<VertexArrayObject> vao;
     GLuint vbo;
     std::unique_ptr<RendererProgram> &program;
-    uint capacity;
-    uint size;
+    uint32_t capacity;
+	uint32_t size;
 
     void enableAttributes() const;
 public:
-    RendererBuffer(std::unique_ptr<RendererProgram> &program, uint capacity);
+    RendererBuffer(std::unique_ptr<RendererProgram> &program, uint32_t capacity);
     ~RendererBuffer();
 
     void bind() const;

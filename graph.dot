@@ -1,4 +1,0 @@
-digraph D {
-  "RendererBuffer<T>" -> {"RendererBuffer<Vertex>", "RendererBuffer<TextureVertex>"}
-  "RendererBuffer (VBO)" -> { VAO, Program }
-}

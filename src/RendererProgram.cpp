@@ -1,5 +1,6 @@
 #include "RendererProgram.hpp"
 #include <fstream>
+#include <iostream>
 #include "RendererDebugger.hpp"
 
 using namespace std;
@@ -16,12 +17,16 @@ RendererProgram::~RendererProgram() {
     glDeleteProgram(program);
 }
 
-void RendererProgram::useProgram() const {
+void RendererProgram::useProgram() {
     glUseProgram(program);
 }
 
-string RendererProgram::openShaderSource(string filePath) const {
-    ifstream file(filePath);
+string RendererProgram::openShaderSource(string filePath) {
+	ifstream file = ifstream(filePath, ios::in | ios::binary | ios::ate);
+	if (!file.is_open()) {
+		cout << "Unable to load binary at path " << filePath.c_str() << endl;
+		exit(1);
+	}
     string source;
 
     file.seekg(0, ios::end);
@@ -32,7 +37,7 @@ string RendererProgram::openShaderSource(string filePath) const {
     return source;
 }
 
-GLuint RendererProgram::compileShader(string filePath, GLenum shaderType) const {
+GLuint RendererProgram::compileShader(string filePath, GLenum shaderType) {
     string source = openShaderSource(filePath);
     GLuint shader = glCreateShader(shaderType);
     const GLchar *src = source.c_str();
@@ -46,7 +51,7 @@ GLuint RendererProgram::compileShader(string filePath, GLenum shaderType) const 
     return shader;
 }
 
-GLuint RendererProgram::linkProgram(vector<GLuint> shaders) const {
+GLuint RendererProgram::linkProgram(vector<GLuint> shaders) {
     GLuint program = glCreateProgram();
     for(vector<GLuint>::iterator it = shaders.begin(); it != shaders.end(); ++it) {
         glAttachShader(program, *it);
@@ -60,7 +65,7 @@ GLuint RendererProgram::linkProgram(vector<GLuint> shaders) const {
     return program;
 }
 
-GLuint RendererProgram::findProgramAttribute(string attribute) const {
+GLuint RendererProgram::findProgramAttribute(string attribute) {
     const GLchar *attrib = attribute.c_str();
     GLint index = glGetAttribLocation(program, attrib);
     checkForOpenGLErrors();

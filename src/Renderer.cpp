@@ -26,14 +26,16 @@ Renderer::Renderer() {
 
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-    program = make_unique<RendererProgram>("glsl/vertex.glsl", "glsl/fragment.glsl");
+	framebufferTexture = make_unique<Texture>(WIDTH, HEIGHT);
+
+    program = make_unique<RendererProgram>("C:\\Users\\Ruenzuo\\GitHub\\UnsafePointer\\opengl-renderer-tests\\glsl\\vertex.glsl", "C:\\Users\\Ruenzuo\\GitHub\\UnsafePointer\\opengl-renderer-tests\\glsl\\fragment.glsl");
     program->useProgram();
 
     buffer = make_unique<RendererBuffer<Vertex>>(program, 1024);
 
-    framebufferTexture = make_unique<Texture>(WIDTH, HEIGHT);
+    
 
-    screenProgram = make_unique<RendererProgram>("glsl/screen_vertex.glsl", "glsl/screen_fragment.glsl");
+    screenProgram = make_unique<RendererProgram>("C:\\Users\\Ruenzuo\\GitHub\\UnsafePointer\\opengl-renderer-tests\\glsl\\screen_vertex.glsl", "C:\\Users\\Ruenzuo\\GitHub\\UnsafePointer\\opengl-renderer-tests\\glsl\\screen_fragment.glsl");
 
     screenBuffer = make_unique<RendererBuffer<Pixel>>(screenProgram, 1024);
     checkForOpenGLErrors();

@@ -6,13 +6,13 @@
 class RendererProgram {
     GLuint program;
 
-    std::string openShaderSource(std::string filePath) const;
-    GLuint compileShader(std::string filePath, GLenum shaderType) const;
-    GLuint linkProgram(std::vector<GLuint> shaders) const;
+    std::string openShaderSource(std::string filePath);
+    GLuint compileShader(std::string filePath, GLenum shaderType);
+    GLuint linkProgram(std::vector<GLuint> shaders);
 public:
     RendererProgram(std::string vertexShaderSrcPath, std::string fragmentShaderSrcPath);
     ~RendererProgram();
 
-    void useProgram() const;
-    GLuint findProgramAttribute(std::string attribute) const;
+    void useProgram();
+    GLuint findProgramAttribute(std::string attribute);
 };

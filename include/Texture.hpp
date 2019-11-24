@@ -1,6 +1,5 @@
 #pragma once
 #include <glad/glad.h>
-#include <memory>
 
 class Texture {
 public:
@@ -9,7 +8,7 @@ public:
     GLsizei height;
 
     Texture(GLsizei width, GLsizei height);
-    ~Texture();
+	~Texture();
 
     void bind(GLenum texture);
 };
