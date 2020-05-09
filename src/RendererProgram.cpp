@@ -66,3 +66,10 @@ GLuint RendererProgram::findProgramAttribute(string attribute) const {
     checkForOpenGLErrors();
     return index;
 }
+
+GLuint RendererProgram::findProgramUniform(string uniform) const {
+    const GLchar *attrib = uniform.c_str();
+    GLint index = glGetUniformLocation(program, attrib);
+    checkForOpenGLErrors();
+    return index;
+}

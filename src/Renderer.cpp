@@ -29,6 +29,9 @@ Renderer::Renderer() {
     program = make_unique<RendererProgram>("glsl/vertex.glsl", "glsl/fragment.glsl");
     program->useProgram();
 
+    GLuint offsetUniform = program->findProgramUniform("offset");
+    glUniform2f(offsetUniform, -0.5, -0.5);
+
     buffer = make_unique<RendererBuffer<Vertex>>(program, 1024);
 
     framebufferTexture = make_unique<Texture>(WIDTH, HEIGHT);
